@@ -92,8 +92,8 @@ median difference: 0.000340
 and the Python test give me results like:
 
 ```
-mean: 0.000897380113602
-median: 0.000858068466187
+mean difference: 0.000897380113602
+median difference: 0.000858068466187
 ```
 
 It seems quite interesting that the C results are quite a bit slower on average
