@@ -45,13 +45,13 @@ the post-computation timestamps. This information is written out to disk
 at the end of a file which contains all the timestamp and payload computed
 data.
 
-The filename is "`network_test_c_<ext>`" where ext is the 'extension' in
+The filename is "`network_test_c_<ext>`" where `<ext>` is the 'extension' in
 the 'done' packet.
 
 ### `server_perf.py` ###
 
 This file does exactly the same thing as `server_perf.c` but is implemented
-in Python. The generated file is "`network_test_python_<ext>`" where ext is the 'extension' in
+in Python. The generated file is "`network_test_python_<ext>`" where `<ext>` is the 'extension' in
 the 'done' packet.
 
 ### `driver.py` ###
