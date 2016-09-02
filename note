@@ -1,0 +1,69 @@
+
+Marc,
+
+Thank you for further clarifying your recommendation.
+
+You mentioned that we may have different expectations. I would expect that the
+difference between native (C/C++) performance and Python performance to be on the
+order of milliseconds to sub-milliseconds.
+
+You also expressed concern about higher data rates and Python not being able to
+keep up.
+
+To try and validate your concern and to address your comment that your have not
+"observed my description of performance", I hacked together a quick benchmark to
+exercise C and Python on equivalent tasks. I wrote a python UDP server and an
+equivalent C UDP server which are both expecting large packets (10 kilobytes) at
+a high data rate (100 Hz).
+
+Each packet sent to the server has a timestamp and a 10KB payload. When the server
+receives the packet, it does some cpu bound work. I decided that uppercasing the
+entire payload was a fair proxy for real work since every byte of the payload gets
+processed. Once that work is done, a new timestamp is generated and the difference
+between the timestamp and the timestamp in the packet is computed. These
+timestamps and the payload are stored in an in-memory data structure.
+
+After 1000 packets have been processed, a file is generated containing all of data
+that has been computed along with two statistics.
+
+1) the average difference between the packet timestamp and the timestamp that was
+generated after receiving and processing the payload.
+
+2) the median value of the difference between the packet timestamp and the
+timestamp that was generated after receiving and processing the payload.
+
+What I found was sort of surprising. The average value for the C server was about
+two orders of magnitude slower than the python version. However, the median value
+was similar but a bit faster.
+
+Here are some typical results running on my laptop:
+
+C:
+
+average difference: 0.051660
+median difference: 0.000374
+
+Python:
+
+mean difference: 0.000891726970673
+median difference: 0.000895977020264
+
+If you look at the generated file for the C version you will find some outliers
+that are bringing the average down. I'm sure that the C version could be fixed to
+be faster than the Python version for both average and median.
+
+However, I guess the point that I am making is that the C version is only faster
+by about 0.4 milliseconds in the median case. The fact that the average case is
+slower than Python is simply indicative of the fact that while it it possible to
+write extremely fast code in C, it is just as likely to be slower because it's
+harder to write correctly.
+
+The python standard library is able to stand up to C performance for network IO
+because it *is* C network IO. The implementations of those functions are all native.
+
+I hosted this experiment on github. Please feel free to take a look.
+
+It's at https://github.com/stharding/c_vs_python_net_test
+
+Cheers,
+

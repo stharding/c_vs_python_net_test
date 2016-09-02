@@ -27,9 +27,9 @@ with open('network_test_python_' + result_name, 'w') as f:
         f.write('{:.30f}\t{:.30f}\t{:.30f}\t{}\n'.format(l[0], l[1], diff, l[2]))
 
     f.write('\n\nStats:\n')
-    mean = str(sum(diffs) / len(diffs))
+    average = str(sum(diffs) / len(diffs))
     median = str(sorted(diffs)[len(diffs) / 2])
-    f.write('mean difference: ' + mean + '\n')
+    f.write('average difference: ' + average + '\n')
     f.write('median difference: ' + median + '\n')
-    print 'mean difference:', mean
+    print 'average difference:', average
     print 'median difference:', median
