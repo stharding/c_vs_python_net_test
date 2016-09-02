@@ -92,7 +92,7 @@ median difference: 0.000340
 and the Python test give me results like:
 
 ```
-mean difference: 0.000897380113602
+average difference: 0.000897380113602
 median difference: 0.000858068466187
 ```
 
