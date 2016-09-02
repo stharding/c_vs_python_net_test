@@ -17,7 +17,7 @@ packets of the form:
 
 `time_stamp!payload`
 
-where `time_stamp` is a `double` representing the number of second since
+where `time_stamp` is a `double` representing the number of seconds since
 the epoch and `payload` is expected to be a string of lowercase ascii
 characters 10 kilobytes long.
 
@@ -36,10 +36,23 @@ to capitalize all of the ascii characters in the payload.
 This work seems to be a good proxy for 'real' work because every byte
 in the payload is operated on.
 
+After the work is done for the packet, a timestamp is computed and stored
+along with the timestamp in the packet and the converted payload.
+
+once the 'done' packet is received, the server computes average and
+median statistics for the differences between the packet timestamps and
+the post-computation timestamps. This information is written out to disk
+at the end of a file which contains all the timestamp and payload computed
+data.
+
+The filename is "`network_test_c_<ext>`" where ext is the 'extension' in
+the 'done' packet.
+
 ### `server_perf.py` ###
 
 This file does exactly the same thing as `server_perf.c` but is implemented
-in Python.
+in Python. The generated file is "`network_test_python_<ext>`" where ext is the 'extension' in
+the 'done' packet.
 
 ### `driver.py` ###
 
